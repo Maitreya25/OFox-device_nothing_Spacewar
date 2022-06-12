@@ -120,3 +120,41 @@ BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+BOARD_HAS_LARGE_FILESYSTEM := true
+
+# Workaround for error copying vendor files to recovery ramdisk
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
+
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+BOARD_USES_METADATA_PARTITION := true
+TW_USE_FSCRYPT_POLICY := 1
+
+# TWRP specific build flags
+TW_THEME := portrait_hdpi
+RECOVERY_SDCARD_ON_DATA := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_NTFS_3G := true
+TW_USE_TOOLBOX := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_MAX_BRIGHTNESS := 2047
+TW_DEFAULT_BRIGHTNESS := 1200
+TWRP_INCLUDE_LOGCAT := true
+TW_INCLUDE_PYTHON := true
+TARGET_USES_LOGD := true
+TARGET_USES_MKE2FS := true
+TW_EXCLUDE_TWRPAPP := true
+TW_OVERRIDE_SYSTEM_PROPS := "ro.build.date.utc;ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
+
+# Vibrator
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
+TW_USE_LEDS_HAPTICS := true
+PLATFORM_VERSION := 16.1.0
+PLATFORM_SECURITY_PATCH := 2127-12-31
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)

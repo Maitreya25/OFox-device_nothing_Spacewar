@@ -16,6 +16,7 @@ on init
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    write /sys/class/power_supply/usb/otg_switch 1
     
 # Mount firmware 
      mkdir /firmware mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix}
@@ -29,8 +30,16 @@ on late-fs
     start set_permissive
     start health-hal-2-1
 
+service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
+    user root
+    group root
+    disabled
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    seclabel u:r:recovery:s0
+
 on boot
     setprop sys.usb.config mtp,adb
+    start vendor.qti.vibrator
 
 on property:modem.partition.mounted=1
     insmod /vendor/lib/modules/q6_pdr_dlkm.ko
