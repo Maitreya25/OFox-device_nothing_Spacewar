@@ -16,7 +16,10 @@ on init
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
+    
+# Mount firmware 
+     mkdir /firmware mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix}
+/firmware ro
 
 on post-fs
     start boot-hal-1-1
@@ -38,8 +41,8 @@ on property:modem.partition.mounted=1
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
 
-on property:twrp.modules.loaded=true
-    # Load ADSP firmware for PMIC
+on property:twrp.modules.loaded=true 
+# Load ADSP firmware for PMIC 
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
