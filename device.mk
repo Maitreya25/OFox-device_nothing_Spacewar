@@ -94,6 +94,7 @@ TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
 TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_APEX := true
+TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/mmi_battery"
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
