@@ -19,8 +19,13 @@ on fs
     write /sys/class/power_supply/usb/otg_switch 1
     
 # Mount firmware 
-     mkdir /firmware mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix}
-/firmware ro
+     mkdir /firmware
+    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} 
+   /firmware ro context=u:object_r:firmware_file:s0
+
+on property:dev.mnt.blk.firmware=*
+    write /sys/kernel/boot_adsp/boot 1
+    wait /sys/class/power_supply/battery
 
 on post-fs
     start boot-hal-1-1
@@ -47,10 +52,9 @@ on property:modem.partition.mounted=1
     insmod /vendor/lib/modules/snd_event_dlkm.ko
     insmod /vendor/lib/modules/apr_dlkm.ko
     insmod /vendor/lib/modules/adsp_loader_dlkm.ko
-    write /sys/kernel/boot_adsp/boot 1
-    wait /sys/class/power_supply/battery
 
 on property:twrp.modules.loaded=true 
+
 # Load ADSP firmware for PMIC 
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
