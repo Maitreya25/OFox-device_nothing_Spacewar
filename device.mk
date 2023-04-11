@@ -95,6 +95,7 @@ TARGET_USES_MKE2FS := true
 TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_APEX := true
 TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/mmi_battery"
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
@@ -106,7 +107,10 @@ PLATFORM_VERSION := 127
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 BOARD_USES_QCOM_FBE_DECRYPTION := true
 
-TW_LOAD_VENDOR_MODULES := "goodix_core.ko focaltech_touch.ko adsp_loader_dlkm.ko"
+TW_LOAD_VENDOR_MODULES := "goodix_fp.ko adsp_loader_dlkm.ko modules.load msm_drm.ko q6_notifier_dlkm.ko q6_pdr_dlkm.ko sensors_ssc.ko qti_battery_charger_main.ko"
+
+# Haptics fix
+TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
 
 TARGET_RECOVERY_DEVICE_MODULES += \
     libandroidicu \
@@ -118,6 +122,13 @@ TARGET_RECOVERY_DEVICE_MODULES += \
 
 RECOVERY_LIBRARY_SOURCE_FILES += \ $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \ $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \ $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \ $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
 
+# Keystore
+PRODUCT_PACKAGES += \
+    android.system.keystore2
+
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
+    
+# VINTF
+PRODUCT_ENFORCE_VINTF_MANIFEST := true

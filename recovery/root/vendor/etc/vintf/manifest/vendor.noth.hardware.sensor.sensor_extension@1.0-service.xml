@@ -1,0 +1,12 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>vendor.noth.hardware.sensor.sensor_extension</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISensorExtension</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</manifest>
+
