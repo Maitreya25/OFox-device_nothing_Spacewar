@@ -12,14 +12,14 @@ on init
     mount_all /vendor/etc/charger_fw_fstab.qti --early
     write /sys/class/backlight/panel0-backlight/brightness 200
     setprop sys.usb.configfs 1
+    write /sys/class/power_supply/usb/otg_switch 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    write /sys/class/power_supply/usb/otg_switch 1
     
 # Mount firmware 
-     mkdir /firmware
+    mkdir /firmware
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} 
    /firmware ro context=u:object_r:firmware_file:s0
 
