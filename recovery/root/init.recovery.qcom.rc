@@ -33,7 +33,6 @@ on post-fs
 on late-fs
     start keymasterd
     start set_permissive
-    start health-hal-2-1
 
 service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
     user root
@@ -45,6 +44,7 @@ service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
 on boot
     setprop sys.usb.config mtp,adb
     start vendor.qti.vibrator
+    start health-hal-2-1
 
 on property:modem.partition.mounted=1
     insmod /vendor/lib/modules/q6_pdr_dlkm.ko
