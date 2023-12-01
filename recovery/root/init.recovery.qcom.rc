@@ -44,6 +44,7 @@ on property:modem.partition.mounted=1
     insmod /vendor/lib/modules/snd_event_dlkm.ko
     insmod /vendor/lib/modules/apr_dlkm.ko
     insmod /vendor/lib/modules/adsp_loader_dlkm.ko
+    insmod /vendor/lib/modules/fts_tp.ko
 
 on property:dev.mnt.blk.firmware=*
     wait /sys/kernel/boot_adsp/boot
